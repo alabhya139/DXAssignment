@@ -1,0 +1,37 @@
+<div class="container p-2">
+    <div class="header">
+        <h2>Movies List</h2>
+        <div class="add-movies">
+            <button [routerLink]="['add-movies']" class="btn btn-success">Add Movies</button>
+        </div>
+    </div>
+
+    <div class="content table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Poster</th>
+                    <th>Movie Name</th>
+                    <th>Year of Release</th>
+                    <th>Movie Plot</th>
+                    <th>Cast</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let movie of moviesCollection; let index = index;">
+                    <td class="text-center"><img class="movie-poster" src="http://localhost:3000/{{movie.moviePoster}}" alt="movie.movieName"></td>
+                    <td>{{movie.movieName}}</td>
+                    <td>{{movie.yearOfRelease | date}}</td>
+                    <td>{{movie.moviePlot}}</td>
+                    <div *ngFor="let casting of castingDetails">
+                            <div *ngFor="let actor of casting">
+                                    <span class="badge badge-secondary mr-1">{{actor.actorName}}</span>
+                                </div>
+                    </div>
+                    <td class="text-center"><i class="fas fa-pencil-alt"></i></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

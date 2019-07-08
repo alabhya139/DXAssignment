@@ -1,0 +1,58 @@
+<div class="container p-2">
+    <h2 class="mb-4">Add New Movie</h2>
+
+    <div class="forms mt-4">
+        <form [formGroup]="addForm"(ngSubmit)="onSubmit(addForm.value)">
+            <div class="movie-form d-flex flex-row">
+                <label class="col-md-3">Movie Name</label>
+                <input type="text" formControlName="movieName" class="form-control border-primary col-md-5" placeholder="Enter movie name">
+            </div>
+
+            <div class="movie-form d-flex flex-row">
+                <label class="col-md-3">Year of Release</label>
+                <input type="date" formControlName="yearOfRelease" class="form-control border-primary col-md-5" placeholder="Enter Year of Release">
+            </div>
+
+            <div class="movie-form d-flex flex-row">
+                <label class="col-md-3">Movie Plot</label>
+                <textarea formControlName="moviePlot" class="form-cotrol border-primary col-md-5" placeholder="Enter movie plot"></textarea>
+            </div>
+
+            <div class="movie-form d-flex flex-row">
+                <label class="col-md-3">Movie Poster</label>
+                <input (change)="OnFileChange($event)" type="file" class="col-md-5">
+            </div>
+
+            <div class="movie-form d-flex flex-row">
+                <label class="col-md-3">Movie Cast</label>
+                <div class="search-results col-md-5">
+                    <input
+                     type="text"
+                     placeholder="Search Actors"
+                     class="form-control border-primary"
+                     [value]=""
+                      ngxTypeahead
+                      [taUrl]="url"
+                      [taParams]="params"
+                      [taItemTpl]="itemTpl"
+                      [taApi]="'http'"
+                      (taSelected)="handleResultSelected($event)"
+                    >
+                    <ng-template #itemTpl let-result>
+                      <strong>{{ result.result.actorName }}</strong>
+                    </ng-template>
+                </div>
+                <button class="btn btn-success ml-2 d-flex flex-row"><i class="fas fa-plus mr-1"></i>Actor</button>
+            </div>
+
+            <div class="actor d-flex flex-row flex-wrap justify-content-center">
+                <span class="badge badge-secondary mr-1" *ngFor= "let actor of castingActors; let index = index;">{{actor.actorName}}<i (click)="removeActors()" class="fas fa-times ml-2"></i></span>
+            </div>
+
+            <div class="form-action mb-4 d-flex flex-row justify-content-center">
+                <button type="submit" class="btn btn-success">Save</button>
+                <button class="btn btn-light">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
